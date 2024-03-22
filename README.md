@@ -1,14 +1,14 @@
 # 极简科研分析系统
 
-用于展示毕业设计的图像分析、时序分析的效果
+🤩 仅需修改配置文件就可以展示毕业设计的图像分析、时序分析的毕设系统
+
+- 📦 开箱即用 | 只需更改配置文件和markdown即可成为自己的毕业设计系统
+- 🏠 架构简单 | 采用`Next.js + NextUI + TailwindCSS`, 整体架构便于理解
+
 
 ## 效果图 
 ![home](./md-images/home.png)
 ![about](./md-images/about.png)
-
-特点:
-- 📦 开箱即用 | 只需更改配置文件和markdown即可成为自己的毕业设计系统
-- 🏠 架构简单 | 采用`Next.js + NextUI + TailwindCSS`, 整体架构便于理解
 
 ## 使用指南
 

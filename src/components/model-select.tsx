@@ -1,7 +1,16 @@
 import React from "react";
 import {Select, SelectItem} from "@nextui-org/react";
 
-export default function ModelSelect() {
+interface ModelSelectProps {
+    modelSelect?: (data: string) => void;
+}
+
+export default function ModelSelect(data: ModelSelectProps) {
+
+    const handleSelectionChange = (e) => {
+        // 假设这是我们需要发送给父组件的数据
+        data.modelSelect?.(e.target.value)
+    };
 
     let models = [
         {label: "模型1", value: "model1"},
@@ -22,6 +31,7 @@ export default function ModelSelect() {
             variant="flat"
             label="模型选择"
             className="max-w-xs"
+            onChange={handleSelectionChange}
         >
             {models.map((model) => (
                 <SelectItem key={model.value} value={model.value}>
