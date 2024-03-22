@@ -32,7 +32,7 @@ export default function Header(props: HeaderProps) {
                     className="sm:hidden"
                 />
                 {/*<AcmeLogo />*/}
-                <p className="text-2xl font-semibold">极简科研分析系统</p>
+                <p className="text-2xl font-semibold">{process.env.NEXT_PUBLIC_PROJECT_NAME}</p>
             </NavbarContent>
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
                 {

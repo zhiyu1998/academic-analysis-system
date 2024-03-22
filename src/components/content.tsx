@@ -23,7 +23,7 @@ export default function Content() {
                         <Image
                             isBlurred
                             width={240}
-                            src="https://nextui-docs-v2.vercel.app/images/album-cover.png"
+                            src={process.env.NEXT_PUBLIC_MODEL_RES}
                             alt="NextUI Album Cover"
                             classNames="m-5"
                         />

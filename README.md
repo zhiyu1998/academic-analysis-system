@@ -14,13 +14,29 @@
 
 ### 项目名称
 极简科研分析系统可以更改为您的毕业设计名称，方便修改和答辩：
-@todo
+在项目根目录找到 `.env.local`，修改 `NEXT_PUBLIC_PROJECT_NAME`
+
+### 模型选择
+- 在项目根目录找到 `.env.local`，修改 `NEXT_PUBLIC_MODEL_SELECT`
+
+### 结果图片
+如果你不想走服务器流程知识仅仅展示，可以直接把你的效果图地址 public 文件下，然后修改 `.env.local`，修改 `NEXT_PUBLIC_MODEL_SELECT` 为你的public文件下的文件名即可
+1. 放到public下
+
+![pic1](./md-images/pic1.png)
+
+2. 修改 .env.local
+![pic2](./md-images/pic2.png)
+
+![pic3](./md-images/pic3.png)
 
 ### 关于
 这个页面是根据markdown文件实时渲染
 1. 在`src/docs`下更改 `mine.mdx` 的内容即可实时渲染`关于`界面
+
 ![demo1](./md-images/demo1.png)
 2. 更改自己想要的内容
+
 ![demo2](./md-images/demo2.png)
 
 
