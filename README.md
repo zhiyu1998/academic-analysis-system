@@ -7,7 +7,7 @@
 
 
 ## 效果图 
-![home](./md-images/home.png)
+![home](./md-images/home.gif)
 ![about](./md-images/about.png)
 
 ## 使用指南
