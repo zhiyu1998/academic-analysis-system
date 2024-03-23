@@ -26,9 +26,9 @@ export function getPosts(): Post[] {
         .filter((fn) => fn.endsWith(".mdx"))
         .map((fn) => {
             const slug = extractSlug(fn);
-            const path = `${root}/${fn}`;
+            const path = `${ root }/${ fn }`;
             const raw = fs.readFileSync(path, "utf-8");
-            const { data, content } = matter(raw);
+            const {data, content} = matter(raw);
             return {
                 ...data,
                 slug: slug,
@@ -40,10 +40,10 @@ export function getPosts(): Post[] {
 }
 
 export function getPostBySlug(slug: string): Post | null {
-    const path = `${root}/${slug}.mdx`;
+    const path = `${ root }/${ slug }.mdx`;
     if (!fs.existsSync(path)) return null;
     const raw = fs.readFileSync(path, "utf-8");
-    const { data, content } = matter(raw);
+    const {data, content} = matter(raw);
     return {
         ...data,
         slug: slug,

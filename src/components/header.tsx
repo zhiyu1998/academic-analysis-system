@@ -25,23 +25,23 @@ export default function Header(props: HeaderProps) {
     const activeIndex = props.activeIndex;
 
     return (
-        <Navbar onMenuOpenChange={setIsMenuOpen}>
+        <Navbar onMenuOpenChange={ setIsMenuOpen }>
             <NavbarContent>
                 <NavbarMenuToggle
-                    aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                    aria-label={ isMenuOpen ? "Close menu" : "Open menu" }
                     className="sm:hidden"
                 />
-                {/*<AcmeLogo />*/}
-                <p className="text-2xl font-semibold">{process.env.NEXT_PUBLIC_PROJECT_NAME}</p>
+                {/*<AcmeLogo />*/ }
+                <p className="text-2xl font-semibold">{ process.env.NEXT_PUBLIC_PROJECT_NAME }</p>
             </NavbarContent>
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
                 {
-                    menuItems.map( (item, index) => {
+                    menuItems.map((item, index) => {
                         return (
-                            <NavbarItem isActive={index === activeIndex}>
-                                <Link color={index === activeIndex ? 'primary' : 'foreground'}
-                                      href={item.link}>
-                                    {item.title}
+                            <NavbarItem isActive={ index === activeIndex }>
+                                <Link color={ index === activeIndex ? 'primary' : 'foreground' }
+                                      href={ item.link }>
+                                    { item.title }
                                 </Link>
                             </NavbarItem>
                         )
@@ -49,8 +49,8 @@ export default function Header(props: HeaderProps) {
                 }
             </NavbarContent>
             <NavbarMenu>
-                {menuItems.map((item, index) => (
-                    <NavbarMenuItem key={`${item}-${index}`}>
+                { menuItems.map((item, index) => (
+                    <NavbarMenuItem key={ `${ item }-${ index }` }>
                         <Link
                             color={
                                 index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
@@ -59,10 +59,10 @@ export default function Header(props: HeaderProps) {
                             href="#"
                             size="lg"
                         >
-                            {item.title}
+                            { item.title }
                         </Link>
                     </NavbarMenuItem>
-                ))}
+                )) }
             </NavbarMenu>
         </Navbar>
     );

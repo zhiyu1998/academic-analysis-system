@@ -1,10 +1,9 @@
 'use client'
-import React, {useEffect, useState} from "react";
-import {Card, Input, Image, CardBody, Button, Tooltip, Chip} from "@nextui-org/react";
+import React, { useState } from "react";
+import { Card, Image, CardBody, Button, Chip } from "@nextui-org/react";
 import ModelProgress from "@/components/model-progress";
 import ModelSelect from "@/components/model-select";
-import ImageUploader from "@/components/image-uploader";
-import {NotificationIcon} from "@/components/Notificationlcon";
+import { NotificationIcon } from "@/components/Notificationlcon";
 
 export default function Content() {
 
@@ -25,7 +24,11 @@ export default function Content() {
     // 是否显示下载
     const [isDownload, setIsDownload] = useState(false);
 
+    // 展示结果
     const [displayResult, setDisplayResult] = useState(false);
+
+    // 是否使用服务器
+    const isServer: boolean = Boolean(process.env.NEXT_PUBLIC_IS_THROUGH_SERVER);
 
     /**
      * 图片上传处理
@@ -36,6 +39,7 @@ export default function Content() {
         if (file && file.type.startsWith('image/')) {
             const reader = new FileReader();
             reader.onloadend = () => {
+                // @ts-ignore
                 setImageUrl(reader.result);
             };
             reader.readAsDataURL(file);
@@ -67,14 +71,29 @@ export default function Content() {
             return;
         } else {
             setIsShowProgress(true)
-            // TODO: 暂时先这样表示已经完成
-            setTimeout(() => {
-                setIsDownload(true)
-                setIsShowProgress(false)
-                setDisplayResult(true)
-                setDynamicBtn("下载")
-            }, 3000)
+            // 已经完成
+            if (!isServer) {
+                try {
+                    // TODO
+                } catch (err) {
+                    console.error(err);
+                }
+            } else {
+                setTimeout(() => {
+                    finishOrder();
+                }, 3000);
+            }
         }
+    }
+
+    /**
+     * 完成标志
+     */
+    const finishOrder = () => {
+        setIsDownload(true)
+        setIsShowProgress(false)
+        setDisplayResult(true)
+        setDynamicBtn("下载")
     }
 
     /**
@@ -94,50 +113,51 @@ export default function Content() {
                     <div className="flex justify-center gap-10 mb-10">
                         <Image
                             isBlurred
-                            width={240}
-                            src={imageUrl || "cloud upload-fill.png"}
+                            width={ 240 }
+                            src={ imageUrl || "cloud upload-fill.png" }
                             alt="NextUI Album Cover"
                             classNames="m-5"
                         />
                         <Image
                             isBlurred
-                            width={240}
-                            style={displayResult ? {} : {display: "none"}}
-                            src={process.env.NEXT_PUBLIC_MODEL_RES}
+                            width={ 240 }
+                            style={ displayResult ? {} : {display: "none"} }
+                            src={ process.env.NEXT_PUBLIC_MODEL_RES }
                             alt="NextUI Album Cover"
                             classNames="m-5"
                         />
                     </div>
                     <div className="flex justify-center mb-10">
-                        <ModelSelect modelSelect={handleModelSelect}/>
+                        <ModelSelect modelSelect={ handleModelSelect }/>
                     </div>
-                    <div className="flex justify-center mb-10" style={isShowProgress ? {} : { display: 'none' }}>
+                    <div className="flex justify-center mb-10" style={ isShowProgress ? {} : {display: 'none'} }>
                         <ModelProgress/>
                     </div>
-                    <div className="flex justify-center mb-5" style={tip ? {} : { display: 'none' }}>
+                    <div className="flex justify-center mb-5" style={ tip ? {} : {display: 'none'} }>
                         <Chip
-                            endContent={<NotificationIcon size={18} />}
+                            endContent={ <NotificationIcon size={ 18 }/> }
                             variant="flat"
                             color="secondary"
                         >
-                            {tip}
+                            { tip }
                         </Chip>
                     </div>
                     <div className="flex justify-center items-center gap-4 px-60 mb-10">
                         <input
                             type="file"
                             accept="image/*"
-                            style={{display: 'none'}}
+                            style={ {display: 'none'} }
                             id="file-input"
-                            onChange={handleImageChange}
+                            onChange={ handleImageChange }
                         />
                         <label htmlFor="file-input">
                             <Button as="span">
                                 上传图片
                             </Button>
                         </label>
-                        <Button onClick={handleAnalysis} onMouseEnter={handleDetect} className="w-1" color={ isDownload ? "success" : "secondary"} isLoading={isShowProgress} >
-                            {dynamicBtn}
+                        <Button onClick={ handleAnalysis } onMouseEnter={ handleDetect } className="w-1"
+                                color={ isDownload ? "success" : "secondary" } isLoading={ isShowProgress }>
+                            { dynamicBtn }
                         </Button>
                     </div>
                 </CardBody>
