@@ -4,6 +4,7 @@ import { Card, Image, CardBody, Button, Chip } from "@nextui-org/react";
 import ModelProgress from "@/components/model-progress";
 import ModelSelect from "@/components/model-select";
 import { NotificationIcon } from "@/components/Notificationlcon";
+import { generateRandomInteger } from "@/lib/utils";
 
 export default function Content() {
 
@@ -96,7 +97,7 @@ export default function Content() {
             } else {
                 setTimeout(() => {
                     finishOrder();
-                }, 3000);
+                }, generateRandomInteger(Number(process.env.NEXT_PUBLIC_MODEL_MIN_PROCESS_TIME), Number(process.env.NEXT_PUBLIC_MODEL_MAX_PROCESS_TIME)));
             }
         }
     }
