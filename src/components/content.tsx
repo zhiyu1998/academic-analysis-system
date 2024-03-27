@@ -62,7 +62,22 @@ export default function Content() {
         }
     }
 
+    const handleDownload = () => {
+        const link = document.createElement('a');
+        link.href = imageUrl; // 确保这是一个可下载的图片URL
+        link.download = process.env.NEXT_PUBLIC_MODEL_RES; // 可以根据需要设置具体的文件名
+        document.body.appendChild(link); // 将链接添加到页面中
+        link.click(); // 模拟用户点击链接
+        document.body.removeChild(link); // 移除链接
+    }
+
     const handleAnalysis = () => {
+        // 如果出现下载图标跳转 @handleDownload 逻辑
+        if (isDownload) {
+            handleDownload(); // 新函数，用于处理下载逻辑
+            return;
+        }
+
         if (imageUrl == null) {
             setTip("请上传图片！");
             return;
