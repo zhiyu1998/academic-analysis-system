@@ -158,28 +158,28 @@ export default function Content() {
                         <div>
                             {
                                 Number(process.env.NEXT_PUBLIC_RENDER_IMAGES_LEN)! > 0 ?
-                                    Array.from({ length: Number(process.env.NEXT_PUBLIC_RENDER_IMAGES_LEN) }, (_, index) => index)
-                                        .map((index) => (
-                                            <div>
-                                                <Image
-                                                    isBlurred
-                                                    width={ 240 }
-                                                    style={ displayResult ? {} : {display: "none"} }
-                                                    src={ `${process.env.NEXT_PUBLIC_MODEL_RES_BATCH_PREFIX}${index}${process.env.NEXT_PUBLIC_MODEL_RES_BATCH_SUFFIX}` }
-                                                    alt="NextUI Album Cover"
-                                                    classNames="m-5"
-                                                />
-                                                <p>{process.env[`NEXT_PUBLIC_MODEL_RES_${index}`]}</p>
-                                            </div>
-
-                                        )) :
-                                    <Image
+                                    <div className="flex flex-wrap content-center">
+                                        {
+                                            Array.from({ length: Number(process.env.NEXT_PUBLIC_RENDER_IMAGES_LEN) }, (_, index) => index)
+                                                .map((index) => (
+                                                    <Image
+                                                        isBlurred
+                                                        style={ displayResult ? {} : {display: "none"} }
+                                                        src={ `${ process.env.NEXT_PUBLIC_MODEL_RES_BATCH_PREFIX }${ index }${ process.env.NEXT_PUBLIC_MODEL_RES_BATCH_SUFFIX }` }
+                                                        alt="NextUI Album Cover"
+                                                        className="m-5 w-20"
+                                                    />
+                                                ))
+                                        }
+                                    </div>
+                                        :
+                                <Image
                                         isBlurred
                                         width={ 240 }
                                         style={ displayResult ? {} : {display: "none"} }
                                         src={ process.env.NEXT_PUBLIC_MODEL_RES }
                                         alt="NextUI Album Cover"
-                                        classNames="m-5"
+                                        className="m-5"
                                     />
                             }
                         </div>
