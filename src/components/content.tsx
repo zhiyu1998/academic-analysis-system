@@ -50,6 +50,27 @@ export default function Content() {
         setDynamicBtn("分析")
     };
 
+    const handleFolderChange = (e) => {
+        let files: FileList = e.target.files;
+        const imageFiles = [];
+        for (let i = 0; i < files.length; i++) {
+            // 检查文件类型是否以'image/'开头
+            if (files[i].type.startsWith('image/')) {
+                imageFiles.push(files[i]);
+            }
+        }
+        // 渲染第一章
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            // @ts-ignore
+            setImageUrl(reader.result);
+        };
+        reader.readAsDataURL(imageFiles[0]);
+        // 加载提示
+        setTip(`检测到有${ imageFiles.length }张图片`);
+        setDynamicBtn("批量分析")
+    }
+
     /**
      * 动态检测当前的模型选择、图片选择
      */
@@ -134,14 +155,34 @@ export default function Content() {
                             alt="NextUI Album Cover"
                             classNames="m-5"
                         />
-                        <Image
-                            isBlurred
-                            width={ 240 }
-                            style={ displayResult ? {} : {display: "none"} }
-                            src={ process.env.NEXT_PUBLIC_MODEL_RES }
-                            alt="NextUI Album Cover"
-                            classNames="m-5"
-                        />
+                        <div>
+                            {
+                                Number(process.env.NEXT_PUBLIC_RENDER_IMAGES_LEN)! > 0 ?
+                                    Array.from({ length: Number(process.env.NEXT_PUBLIC_RENDER_IMAGES_LEN) }, (_, index) => index)
+                                        .map((index) => (
+                                            <div>
+                                                <Image
+                                                    isBlurred
+                                                    width={ 240 }
+                                                    style={ displayResult ? {} : {display: "none"} }
+                                                    src={ `${process.env.NEXT_PUBLIC_MODEL_RES_BATCH_PREFIX}${index}${process.env.NEXT_PUBLIC_MODEL_RES_BATCH_SUFFIX}` }
+                                                    alt="NextUI Album Cover"
+                                                    classNames="m-5"
+                                                />
+                                                <p>{process.env[`NEXT_PUBLIC_MODEL_RES_${index}`]}</p>
+                                            </div>
+
+                                        )) :
+                                    <Image
+                                        isBlurred
+                                        width={ 240 }
+                                        style={ displayResult ? {} : {display: "none"} }
+                                        src={ process.env.NEXT_PUBLIC_MODEL_RES }
+                                        alt="NextUI Album Cover"
+                                        classNames="m-5"
+                                    />
+                            }
+                        </div>
                     </div>
                     <div className="flex justify-center mb-10">
                         <ModelSelect modelSelect={ handleModelSelect }/>
@@ -169,6 +210,20 @@ export default function Content() {
                         <label htmlFor="file-input">
                             <Button as="span">
                                 上传图片
+                            </Button>
+                        </label>
+                        <input
+                            type="file"
+                            style={ {display: 'none'} }
+                            id="folder-input"
+                            onChange={ handleFolderChange }
+                            webkitdirectory=""
+                            directory=""
+                            multiple
+                        />
+                        <label htmlFor="folder-input">
+                            <Button as="span">
+                                批量上传
                             </Button>
                         </label>
                         <Button onClick={ handleAnalysis } onMouseEnter={ handleDetect } className="w-1"

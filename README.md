@@ -30,6 +30,26 @@
 
 ![pic3](./md-images/pic3.png)
 
+
+### 批量处理
+1. 修改处理批量的大小
+
+```angular2html
+NEXT_PUBLIC_RENDER_IMAGES_LEN
+```
+2. 把图片放入到public
+
+![img.png](./md-images/img.png)
+3. 修改前缀和后缀
+
+```angular2html
+NEXT_PUBLIC_MODEL_RES_BATCH_PREFIX="res"
+NEXT_PUBLIC_MODEL_RES_BATCH_SUFFIX=".png"
+```
+4. 效果展示
+
+![img.png](md-images/img2.png)
+
 ### 关于
 这个页面是根据markdown文件实时渲染
 1. 在`src/docs`下更改 `mine.mdx` 的内容即可实时渲染`关于`界面
